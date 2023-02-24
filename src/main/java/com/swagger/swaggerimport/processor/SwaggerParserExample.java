@@ -36,7 +36,7 @@ import io.swagger.v3.parser.OpenAPIV3Parser;
 public class SwaggerParserExample {
 
 	public List<Request> extractRequestsFromOpenAPI(MultipartFile multiPartFile) throws IOException {
-		
+
 		Path tempFilePath = Files.createTempFile(multiPartFile.getOriginalFilename(), null);
 		try (InputStream inputStream = multiPartFile.getInputStream()) {
 			Files.copy(inputStream, tempFilePath, StandardCopyOption.REPLACE_EXISTING);
@@ -206,7 +206,15 @@ public class SwaggerParserExample {
 			case "boolean":
 				return true;
 			case "array":
-				return Collections.emptyList();
+				ArraySchema arraySchema = (ArraySchema) schema;
+				Schema items = arraySchema.getItems();
+				if (items.getType().equals("string")) {
+					List<String> stringList = new ArrayList<>();
+					stringList.add("string");
+					return stringList;
+				} else {
+					return Collections.emptyList();
+				}
 			case "object":
 				return JsonNodeFactory.instance.objectNode();
 			default:
