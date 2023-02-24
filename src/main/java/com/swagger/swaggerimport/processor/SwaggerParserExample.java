@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -32,7 +32,7 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 
-@Component
+@Service
 public class SwaggerParserExample {
 
 	public List<Request> extractRequestsFromOpenAPI(MultipartFile multiPartFile) throws IOException {
